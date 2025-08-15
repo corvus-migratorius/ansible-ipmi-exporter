@@ -1,23 +1,21 @@
-template
+genlab.ipmi_exporter
 =========
 
-Template for Ansible role monorepos.
-
-⚠️ Do not forget to update:
-
-- `meta/main.yml`
-- Conda/Mamba manifests
-- this README =) including *the name at the top* and *maintainers*.
+This Ansible role installs ipmi_exporter on target host. This is a Prometheus exporter for IP Management Interface metrics 
 
 Requirements
 ------------
 
-None
+By default, the exporter relies on tools from the FreeIPMI suite for the actual IPMI implementation.
 
 Role Variables
 --------------
 
-None
+```yaml
+ipmi_exp_version: "1.10.1"
+ipmi_exp_dir: "/etc/exporters"
+ipmi_exp_config_dir: "/etc/exporters/config"
+```
 
 Dependencies
 ------------
@@ -28,8 +26,9 @@ Example Playbook
 ----------------
 
 ```yaml
-roles:
-    - role: genlab.template
+  roles:
+    - role: genlab.ipmi_exporter
+      ipmi_exp_version: "1.10.1"
 ```
 
 License
