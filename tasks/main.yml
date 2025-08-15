@@ -1,4 +1,7 @@
 ---
-- name: "Mock task"
-  ansible.builtin.debug:
-    msg: "hello, world!"
+
+- name: "Include installation tasks"
+  ansible.builtin.include_tasks: "install.yaml"
+
+- name: "Including configuration tasks"
+  ansible.builtin.include_tasks: "configure.yaml"

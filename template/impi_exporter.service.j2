@@ -1,0 +1,11 @@
+[Unit]
+Description=IPMI exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/ipmi_exporter{% if ipmi_local_config is defined and ipmi_local_config | length > 0 %} \
+    --config.file {{ ipmi_local_config }}{% endif %}
+
+[Install]
+WantedBy=multi-user.target
