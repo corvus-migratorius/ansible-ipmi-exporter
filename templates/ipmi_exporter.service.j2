@@ -7,12 +7,12 @@ Type=simple
 ExecStart=/usr/local/bin/ipmi_exporter \
     --web.listen-address={{ ipmi_exp_web_listen_address }} \
     --log.level={{ ipmi_exp_log_level }} \
-    --log.format={{ ipmi_exp_log_format }}
-{% if ipmi_exp_local_config is defined and ipmi_exp_local_config | length > 0 %} \
-    --config.file={{ ipmi_exp_local_config }} \
+    --log.format={{ ipmi_exp_log_format }} \
+{% if ipmi_exp_source_dir is defined and ipmi_exp_source_dir | length > 0 %}
+    --config.file={{ ipmi_exp_config_dir }}/ipmi_local.conf \
 {% endif %}
-{% if ipmi_exp_local_config is defined and ipmi_exp_local_config | length > 0 %} \
-    --web.config.file={{ ipmi_exp_web_config }}
+{% if ipmi_exp_web_source_dir is defined and ipmi_exp_web_source_dir | length > 0 %}
+    --web.config.file={{ ipmi_exp_config_dir }}/web_conf.yaml
 {% endif %}
 
 SyslogIdentifier=ipmi_exporter

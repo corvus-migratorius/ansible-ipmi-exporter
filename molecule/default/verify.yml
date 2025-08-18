@@ -20,7 +20,7 @@
         that: "ipmi_exporter_installed_version.stdout is regex('{{ ipmi_exp_version }}')"
         success_msg: "ipmi_exporter version {{ ipmi_exp_version }} is installed and working"
         fail_msg: "ipmi_exporter version {{ ipmi_exp_version }} is not installed or not working correctly"
- 
+
     # kics-scan ignore-block
     - name: Check if /metrics endpoint is reachable
       ansible.builtin.uri:
