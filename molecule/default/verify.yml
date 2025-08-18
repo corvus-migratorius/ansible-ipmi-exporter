@@ -21,6 +21,22 @@
         success_msg: "ipmi_exporter version {{ ipmi_exp_version }} is installed and working"
         fail_msg: "ipmi_exporter version {{ ipmi_exp_version }} is not installed or not working correctly"
 
+    - name: Install curl on Ubuntu
+      ansible.builtin.apt:
+        name: curl
+        state: present
+        update_cache: true
+
+    - name: Try to access /metrics via curl
+      ansible.builtin.shell: |
+        curl -v http://localhost:9290/metrics
+      register: curl_test
+      ignore_errors: true
+
+    - name: Show curl output
+      ansible.builtin.debug:
+        var: curl_test.stdout
+
     # kics-scan ignore-block
     - name: Check if /metrics endpoint is reachable
       ansible.builtin.uri:
