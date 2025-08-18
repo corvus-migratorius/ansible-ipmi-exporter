@@ -9,7 +9,10 @@ ExecStart=/usr/local/bin/ipmi_exporter \
     --log.level={{ ipmi_exp_log_level }} \
     --log.format={{ ipmi_exp_log_format }}
 {% if ipmi_exp_local_config is defined and ipmi_exp_local_config | length > 0 %} \
-    --config.file {{ ipmi_exp_local_config }}
+    --config.file={{ ipmi_exp_local_config }} \
+{% endif %}
+{% if ipmi_exp_local_config is defined and ipmi_exp_local_config | length > 0 %} \
+    --web.config.file={{ ipmi_exp_web_config }}
 {% endif %}
 
 SyslogIdentifier=ipmi_exporter

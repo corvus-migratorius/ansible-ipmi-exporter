@@ -8,3 +8,13 @@
     group: root
     mode: '0640'
   when: ipmi_exp_source_dir is defined and ipmi_exp_source_dir | length > 0
+
+- name: "Upload ipmi_exporter local configure file"
+  notify: "(Re)start and enable ipmi_exporter"
+  ansible.builtin.template:
+    src: "{{ ipmi_exp_source_dir }}/web_conf.yaml"
+    dest: "{{ ipmi_exp_web_config_dir }}/web_conf.yaml"
+    owner: root
+    group: root
+    mode: '0640'
+  when: ipmi_exp_web_source_dir is defined and ipmi_exp_web_source_dir | length > 0
