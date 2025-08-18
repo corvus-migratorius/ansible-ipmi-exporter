@@ -31,6 +31,10 @@
       register: metrics_check
       ignore_errors: true
 
+    - name: "DEBUG: Print full version output"
+      ansible.builtin.debug:
+        var: metrics_check
+
     - name: Fail if /metrics is unreachable
       ansible.builtin.fail:
         msg: "ipmi_exporter /metrics endpoint is not responding!"
