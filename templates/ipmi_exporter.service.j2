@@ -4,8 +4,28 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/ipmi_exporter{% if ipmi_local_config is defined and ipmi_local_config | length > 0 %} \
-    --config.file {{ ipmi_local_config }}{% endif %}
+ExecStart=/usr/local/bin/ipmi_exporter \
+    --web.listen-address={{ ipmi_exp_web_listen_address }} \
+    --log.level={{ ipmi_exp_log_level }} \
+    --log.format={{ ipmi_exp_log_format }}
+{% if ipmi_exp_local_config is defined and ipmi_exp_local_config | length > 0 %} \
+    --config.file {{ ipmi_exp_local_config }}
+{% endif %}
+
+SyslogIdentifier=ipmi_exporter
+Restart=always
+RestartSec=1
+StartLimitInterval=0
+
+ProtectHome=yes
+NoNewPrivileges=yes
+
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=yes
+PrivateTmp=true
+ProtectSystem=full
 
 [Install]
 WantedBy=multi-user.target

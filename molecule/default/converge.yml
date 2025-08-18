@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   pre_tasks:
-    - name: "install freeIPMI"
+    - name: "Install freeIPMI"
       ansible.builtin.apt:
         name:
           - freeipmi

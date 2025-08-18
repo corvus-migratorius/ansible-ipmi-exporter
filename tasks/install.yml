@@ -4,12 +4,12 @@
     - name: "Check ipmi_exporter version"
       changed_when: false
       ansible.builtin.command:
-        cmd: "{{ ipmi_exp_dir }}/ipmi_exporter --version"
+        cmd: "ipmi_exporter --version"
       register: ipmi_exporter_ver
 
     - name: "Assert version correctness"
       ansible.builtin.assert:
-        that: "ipmi_exporter.stdout is regex('{{ ipmi_exp_version }}')"
+        that: "ipmi_exporter_ver.stdout is regex('{{ ipmi_exp_version }}')"
         success_msg: "ipmi_exporter version {{ ipmi_exp_version }} is installed and working"
         fail_msg: "ipmi_exporter version {{ ipmi_exp_version }} is not installed or not working correctly"
 
@@ -28,7 +28,8 @@
     - name: "Unarchive ipmi_exporter tar file"
       notify: "(Re)start and enable ipmi_exporter"
       ansible.builtin.unarchive:
-        src: "https://github.com/prometheus-community/ipmi_exporter/releases/download/v{{ ipmi_exp_version }}/ipmi_exporter-{{ ipmi_exp_version }}.linux-amd64.tar.gz"
+        src: "https://github.com/prometheus-community/ipmi_exporter/releases/\
+            download/v{{ ipmi_exp_version }}/ipmi_exporter-{{ ipmi_exp_version }}.linux-amd64.tar.gz"
         dest: "{{ ipmi_exp_dir }}"
         remote_src: true
 
