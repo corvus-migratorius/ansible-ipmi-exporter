@@ -43,7 +43,7 @@
         url: "http://{{ ipmi_exp_web_listen_address }}/metrics"
         return_content: false
         status_code: 200
-        timeout: 5
+        timeout: 10
       register: metrics_check
       ignore_errors: true
 
