@@ -11,6 +11,9 @@ ExecStart=/usr/local/bin/ipmi_exporter \
     --web.listen-address={{ ipmi_exp_web_listen_address }} \
     --log.level={{ ipmi_exp_log_level }} \
     --log.format={{ ipmi_exp_log_format }} \
+{% if ipmi_exp_args is defined and ipmi_exp_args | length > 0 %}
+      {{ ipmi_exp_args }} \
+{% endif %}
 {% if ipmi_exp_source_dir is defined and ipmi_exp_source_dir | length > 0 %}
     --config.file={{ ipmi_exp_config_dir }}/ipmi_local.conf \
 {% endif %}
