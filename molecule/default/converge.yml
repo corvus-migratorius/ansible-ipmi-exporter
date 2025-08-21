@@ -1,13 +1,6 @@
 ---
 - name: Converge
   hosts: all
-  pre_tasks:
-    - name: "Install freeIPMI"
-      ansible.builtin.apt:
-        name:
-          - freeipmi
-        update_cache: true
-
   roles:
     - role: genlab.ipmi_exporter
       ipmi_exp_source_dir: "molecule/default/"
