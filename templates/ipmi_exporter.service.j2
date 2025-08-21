@@ -1,6 +1,9 @@
 [Unit]
 Description=IPMI exporter
+Documentation=https://github.com/prometheus-community/ipmi_exporter
 After=network.target
+StartLimitIntervalSec=120
+StartLimitBurst=5
 
 [Service]
 Type=simple
@@ -16,13 +19,11 @@ ExecStart=/usr/local/bin/ipmi_exporter \
 {% endif %}
 
 SyslogIdentifier=ipmi_exporter
-Restart=always
-RestartSec=1
-StartLimitInterval=0
+Restart=on-failure
+RestartSec=5
 
 ProtectHome=yes
 NoNewPrivileges=yes
-
 ProtectSystem=strict
 ProtectControlGroups=true
 ProtectKernelModules=true
