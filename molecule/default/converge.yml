@@ -4,3 +4,4 @@
   roles:
     - role: genlab.ipmi_exporter
       ipmi_exp_source_dir: "molecule/default/"
+      ipmi_exp_web_source_dir: "molecule/default/"
