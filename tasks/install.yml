@@ -30,12 +30,12 @@
       ansible.builtin.unarchive:
         src: "https://github.com/prometheus-community/ipmi_exporter/releases/\
             download/v{{ ipmi_exp_version }}/ipmi_exporter-{{ ipmi_exp_version }}.linux-amd64.tar.gz"
-        dest: "{{ ipmi_exp_dir }}"
+        dest: "/tmp/"
         remote_src: true
 
     - name: "Move ipmi_exporter binary"
       ansible.builtin.copy:
-        src: "{{ ipmi_exp_dir }}/ipmi_exporter-{{ ipmi_exp_version }}.linux-amd64/ipmi_exporter"
+        src: "/tmp/ipmi_exporter-{{ ipmi_exp_version }}.linux-amd64/ipmi_exporter"
         dest: "/usr/local/bin/ipmi_exporter"
         mode: "0755"
         owner: root
