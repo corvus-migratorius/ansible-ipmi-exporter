@@ -10,7 +10,7 @@ By default, the exporter relies on tools from the FreeIPMI suite for the actual 
 
 Role Variables
 --------------
-Configuration files must have names ```web_conf.yaml``` and ```ipmi_local.conf```. If ipmi_exp_source_dir is specified, the role searches for ```web_conf.yaml``` and ```ipmi_local.conf``` in that directory and copy to target host in ```ipmi_exp_config_dir```. If the source directory is not specified, the role skips this step. In ipmi_local.conf user can describe what modules to use for metric collection.
+Configuration files must have names ```web_conf.yaml``` and ```ipmi_local.conf```. If ipmi_exp_local_conf_path is specified, the role searches for ```web_conf.yaml``` and ```ipmi_local.conf``` in that directory and copy to target host in ```ipmi_exp_config_dir```. If the source directory is not specified, the role skips this step. In ipmi_local.conf user can describe what modules to use for metric collection.
 
 ipmi_up{collector="<NAME>"} is 1 if the data for this collector could successfully be retrieved from the remote host, 0 otherwise. The following collectors are available and can be enabled or disabled in the config:
 - ipmi: collects IPMI sensor data. If it fails, sensor metrics (see below) will not be available
@@ -31,8 +31,8 @@ ipmi_exp_args: "" # --[no-]native-ipmi Use native IPMI implementation instead of
 ipmi_exp_log_level: "info" # Only log messages with the given severity or above. One of: [debug, info, warn, error]
 ipmi_exp_log_format: "logfmt" # Output format of log messages. One of: [logfmt, json]
 ipmi_exp_web_listen_address: "localhost:9290" # Addresses on which to expose metrics and web interface. Repeatable for multiple addresses. Examples: `:9100` or `[::1]:9100` for http, vsock://:9100` for vsock
-ipmi_exp_source_dir: ipmi_local.conf # Path to configuration file. See: https://github.com/prometheus-community/ipmi_exporter/blob/master/docs/configuration.md
-ipmi_exp_web_source_dir: web_conf.yaml # Path to configuration file that can enable TLS or authentication. See: https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md
+ipmi_exp_local_conf_path: ipmi_local.conf # Path to configuration file. See: https://github.com/prometheus-community/ipmi_exporter/blob/master/docs/configuration.md
+ipmi_exp_web_conf_path: web_conf.yaml # Path to configuration file that can enable TLS or authentication. See: https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md
 ```
 
 Dependencies
@@ -47,7 +47,7 @@ Example Playbook
   roles:
     - role: genlab.ipmi_exporter
       ipmi_exp_version: "1.10.1"
-      ipmi_exp_source_dir: "molecule/default/"
+      ipmi_exp_local_conf_path: "molecule/default/"
 ```
 
 License

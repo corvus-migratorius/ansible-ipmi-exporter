@@ -1,20 +1,20 @@
 ---
-- name: "Upload ipmi_exporter local configure file"
+- name: "Push local configuration file"
   notify: "(Re)start and enable ipmi_exporter"
-  when: ipmi_exp_source_dir is defined and ipmi_exp_source_dir | length > 0
+  when: ipmi_exp_local_conf_path is defined and ipmi_exp_local_conf_path | length > 0
   ansible.builtin.template:
-    src: "{{ ipmi_exp_source_dir }}/ipmi_local.conf"
-    dest: "{{ ipmi_exp_config_dir }}/ipmi_local.conf"
+    src: "{{ ipmi_exp_local_conf_path }}"
+    dest: "{{ ipmi_exp_config_dir }}/local.yml"
     owner: root
     group: root
     mode: '0640'
 
-- name: "Upload ipmi_exporter web configure file"
+- name: "Push web configuration file"
   notify: "(Re)start and enable ipmi_exporter"
-  when: ipmi_exp_web_source_dir is defined and ipmi_exp_web_source_dir | length > 0
+  when: ipmi_exp_web_conf_path is defined and ipmi_exp_web_conf_path | length > 0
   ansible.builtin.template:
-    src: "{{ ipmi_exp_web_source_dir }}/web_conf.yaml"
-    dest: "{{ ipmi_exp_config_dir }}/web_conf.yaml"
+    src: "{{ ipmi_exp_web_conf_path }}"
+    dest: "{{ ipmi_exp_config_dir }}/web.yml"
     owner: root
     group: root
     mode: '0640'
