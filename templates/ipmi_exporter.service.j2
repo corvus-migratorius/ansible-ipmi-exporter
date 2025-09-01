@@ -1,0 +1,38 @@
+[Unit]
+Description=IPMI exporter
+Documentation=https://github.com/prometheus-community/ipmi_exporter
+After=network.target
+StartLimitIntervalSec=120
+StartLimitBurst=5
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/ipmi_exporter \
+    --web.listen-address={{ ipmi_exp_web_listen_address }} \
+    --log.level={{ ipmi_exp_log_level }} \
+    --log.format={{ ipmi_exp_log_format }} \
+{% if ipmi_exp_args is defined and ipmi_exp_args | length > 0 %}
+      {{ ipmi_exp_args }} \
+{% endif %}
+{% if ipmi_exp_source_dir is defined and ipmi_exp_source_dir | length > 0 %}
+    --config.file={{ ipmi_exp_config_dir }}/ipmi_local.conf \
+{% endif %}
+{% if ipmi_exp_web_source_dir is defined and ipmi_exp_web_source_dir | length > 0 %}
+    --web.config.file={{ ipmi_exp_config_dir }}/web_conf.yaml
+{% endif %}
+
+SyslogIdentifier=ipmi_exporter
+Restart=on-failure
+RestartSec=5
+
+ProtectHome=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=yes
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
