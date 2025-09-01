@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: "ipmi_exporter"
   namespace: genlab
-  author: "Alexander Gorelyshev"
+  author: "Mary Sayganova"
   company: "Genlab, LLC"
   description: ""
   license: "MIT"
