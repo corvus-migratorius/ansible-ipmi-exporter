@@ -1,4 +1,12 @@
 ---
+- name: "Create configuration directory"
+  ansible.builtin.file:
+    path: "{{ ipmi_exp_config_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
 - name: "Push local configuration file"
   notify: "(Re)start and enable ipmi_exporter"
   when: ipmi_exp_local_conf_path is defined and ipmi_exp_local_conf_path | length > 0

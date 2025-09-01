@@ -14,14 +14,6 @@
         fail_msg: "ipmi_exporter version {{ ipmi_exp_version }} is not installed or not working correctly"
 
   rescue:
-    - name: "Create ipmi_exporter directories"
-      ansible.builtin.file:
-        path: "{{ ipmi_exp_config_dir }}"
-        state: directory
-        owner: root
-        group: root
-        mode: "0755"
-
     - name: "Unarchive ipmi_exporter tar file"
       notify: "(Re)start and enable ipmi_exporter"
       ansible.builtin.unarchive:
