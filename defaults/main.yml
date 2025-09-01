@@ -3,5 +3,5 @@ ipmi_exp_version: 1.10.1
 ipmi_exp_config_dir: "/etc/ipmi_exporter"
 ipmi_exp_log_level: "info"
 ipmi_exp_log_format: "logfmt"
-ipmi_exp_web_listen_address: "localhost:9290"
+ipmi_exp_web_listen_address: "0.0.0.0:9290"
 ipmi_exp_args: ""
