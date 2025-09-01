@@ -16,14 +16,11 @@
   rescue:
     - name: "Create ipmi_exporter directories"
       ansible.builtin.file:
-        path: "{{ item }}"
+        path: "{{ ipmi_exp_config_dir }}"
         state: directory
         owner: root
         group: root
         mode: "0755"
-      with_items:
-        - "{{ ipmi_exp_dir }}"
-        - "{{ ipmi_exp_config_dir }}"
 
     - name: "Unarchive ipmi_exporter tar file"
       notify: "(Re)start and enable ipmi_exporter"
